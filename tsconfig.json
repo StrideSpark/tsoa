@@ -20,6 +20,7 @@
         "newLine": "LF",
         "noUnusedParameters": false,
         "emitDecoratorMetadata": true,
+        "skipLibCheck": true,
         "noImplicitThis": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,

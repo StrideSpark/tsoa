@@ -3,43 +3,42 @@ import * as YAML from 'yamljs';
 import { SwaggerConfig } from '../config';
 import { MetadataGenerator } from '../metadataGeneration/metadataGenerator';
 import { Tsoa } from '../metadataGeneration/tsoa';
-import { SpecGenerator } from '../swagger/specGenerator';
+import { SpecGenerator3 } from '../swagger/specGenerator3';
+import { Swagger } from '../swagger/swagger';
 import { fsExists, fsMkDir, fsWriteFile } from '../utils/fs';
 
 export const generateSwaggerSpec = async (
-  config: SwaggerConfig,
-  compilerOptions?: ts.CompilerOptions,
-  ignorePaths?: string[],
-  /**
-   * pass in cached metadata returned in a previous step to speed things up
-   */
-  metadata?: Tsoa.Metadata,
+    config: SwaggerConfig,
+    compilerOptions?: ts.CompilerOptions,
+    ignorePaths?: string[],
+    /**
+     * pass in cached metadata returned in a previous step to speed things up
+     */
+    metadata?: Tsoa.Metadata
 ) => {
-  if (!metadata) {
-    metadata = new MetadataGenerator(
-      config.entryFile,
-      compilerOptions,
-      ignorePaths,
-    ).Generate();
-  }
-  const spec = new SpecGenerator(metadata, config).GetSpec();
+    if (!metadata) {
+        metadata = new MetadataGenerator(config.entryFile, compilerOptions, ignorePaths).Generate();
+    }
+    let spec: Swagger.Spec;
+    // if (config.swagger.version && config.swagger.version.split('.')[0] === '3') {
+    spec = new SpecGenerator3(metadata, config).GetSpec();
+    // } else {
+    // spec = new SpecGenerator2(metadata, config.swagger).GetSpec();
+    // }
+    // const spec = new SpecGenerator(metadata, config).GetSpec();
 
-  const exists = await fsExists(config.outputDirectory);
-  if (!exists) {
-    await fsMkDir(config.outputDirectory);
-  }
+    const exists = await fsExists(config.outputDirectory);
+    if (!exists) {
+        await fsMkDir(config.outputDirectory);
+    }
 
-  let data = JSON.stringify(spec, null, '\t');
-  if (config.yaml) {
-    data = YAML.stringify(JSON.parse(data), 10);
-  }
-  const ext = config.yaml ? 'yaml' : 'json';
+    let data = JSON.stringify(spec, null, '\t');
+    if (config.yaml) {
+        data = YAML.stringify(JSON.parse(data), 10);
+    }
+    const ext = config.yaml ? 'yaml' : 'json';
 
-  await fsWriteFile(
-    `${config.outputDirectory}/swagger.${ext}`,
-    data,
-    { encoding: 'utf8' },
-  );
+    await fsWriteFile(`${config.outputDirectory}/swagger.${ext}`, data, { encoding: 'utf8' });
 
-  return metadata;
+    return metadata;
 };
