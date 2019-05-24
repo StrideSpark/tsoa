@@ -88,6 +88,11 @@ export namespace Tsoa {
             | 'oneOf';
     }
 
+    export interface OneOfType extends Type {
+        dataType: 'oneOf';
+        options: Type[];
+    }
+
     export interface EnumerateType extends Type {
         dataType: 'enum';
         enums: string[];

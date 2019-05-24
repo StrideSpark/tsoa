@@ -1,0 +1,23 @@
+{
+    "swagger": {
+        "outputDirectory": "./dist",
+        "entryFile": "./src/server/server.ts",
+        "host": "localhost:3000",
+        "basePath": "/v1",
+        "securityDefinitions": {
+            "api_key": {
+                "type": "apiKey",
+                "name": "access_token",
+                "in": "query"
+            }
+        },
+        "yaml": true
+    },
+    "routes": {
+        "basePath": "/v1",
+        "entryFile": "./src/server/server.ts",
+        "routesDir": "./src/routes",
+        "middleware": "express",
+        "authenticationModule": "./src/server/authentication.ts"
+    }
+}
