@@ -26,10 +26,10 @@
         "noFallthroughCasesInSwitch": true,
         "strictBindCallApply": true
     },
-    "exclude": [
-        "dist/**"
+    // "exclude": [
+    //     "dist/**"
+    // ],
+    "include": [
+        "src/**/*.ts"
     ]
-    // "include": [
-    //     "src/**/*.ts"
-    // ]
 }
