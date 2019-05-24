@@ -27,9 +27,9 @@
         "strictBindCallApply": true
     },
     "exclude": [
-        "src/routeGeneration/templates/**/*"
-    ],
-    "include": [
-        "src/**/*.ts"
+        "dist/**"
     ]
+    // "include": [
+    //     "src/**/*.ts"
+    // ]
 }
