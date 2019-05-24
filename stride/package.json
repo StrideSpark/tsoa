@@ -1,0 +1,9 @@
+{
+  "name": "stride",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@stridespark/tsoa": "^2.3.81"
+  }
+}

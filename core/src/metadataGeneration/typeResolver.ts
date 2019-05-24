@@ -110,10 +110,10 @@ export class TypeResolver {
 
     let referenceType: Tsoa.ReferenceType;
     if (typeReference.typeArguments && typeReference.typeArguments.length === 1) {
-      const typeT: ts.NodeArray<ts.TypeNode> = typeReference.typeArguments as ts.NodeArray<ts.TypeNode>;
-      referenceType = this.getReferenceType(typeReference.typeName as ts.EntityName, this.extractEnum, typeT);
+      const typeT: ts.NodeArray<ts.TypeNode> = typeReference.typeArguments;
+      referenceType = this.getReferenceType(typeReference.typeName, this.extractEnum, typeT);
     } else {
-      referenceType = this.getReferenceType(typeReference.typeName as ts.EntityName, this.extractEnum);
+      referenceType = this.getReferenceType(typeReference.typeName, this.extractEnum);
     }
 
     this.current.AddReferenceType(referenceType);
